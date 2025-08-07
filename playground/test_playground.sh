@@ -61,6 +61,9 @@ quote_response=$( curl --retry 5 --fail-with-body -s --show-error -X 'POST' \
   "sellAmountBeforeFee": "'$SELL_AMOUNT'"
 }')
 
+echo "Full quote_response:"
+echo "$quote_response"
+
 buyAmount=$(jq -r --args '.quote.buyAmount' <<< "${quote_response}")
 feeAmount=$(jq -r --args '.quote.feeAmount' <<< "${quote_response}")
 validTo=$(($(date +%s) + 120)) # validity time: now + 2 minutes
